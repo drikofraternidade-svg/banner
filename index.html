@@ -29,29 +29,27 @@ html,body{
 <img id="banner" src="img/banner1.png" alt="Banner">
 
 <script>
-
-const imagens = [
-    "img/banner1.png",
-    "img/banner2.png",
-    "img/banner3.png",
-    "img/banner4.png"
+const banners = [
+  "img/banner1.png",
+  "img/banner2.png",
+  "img/banner3.png",
+  "img/banner4.png"
 ];
 
+// Pré-carrega todas as imagens
+banners.forEach(src => {
+  const img = new Image();
+  img.src = src;
+});
+
 let atual = 0;
+const banner = document.getElementById("banner");
 
-setInterval(function(){
-
-    atual++;
-
-    if(atual >= imagens.length){
-        atual = 0;
-    }
-
-    document.getElementById("banner").src = imagens[atual];
-
-},10000);
-
+setInterval(() => {
+  atual = (atual + 1) % banners.length;
+  banner.src = banners[atual];
+}, 10000);
 </script>
-
+    
 </body>
 </html>
