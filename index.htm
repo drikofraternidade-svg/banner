@@ -1,42 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Canal Fraternidade Overlay</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canal Fraternidade Overlay</title>
 
-  <script>
-    const imagens = [
-      'banner/banner1.png',
-      'banner/banner2.png',
-      'banner/banner3.png',
-      'banner/banner4.png'
-    ];
+<style>
+html,body{
+    margin:0;
+    padding:0;
+    background:transparent;
+    overflow:hidden;
+}
 
-    let atual = 0;
+#banner{
+    position:fixed;
+    top:20px;
+    right:20px;
+    width:320px;
+    height:auto;
+}
+</style>
 
-    function trocarImagem() {
-      atual = (atual + 1) % imagens.length;
-      document.getElementById('banner').src = imagens[atual];
-    }
-
-    setInterval(trocarImagem, 10000); // troca a cada 10 segundos
-  </script>
 </head>
 
-<body style="margin:0; background:transparent; overflow:hidden;">
+<body>
 
-  <img
-    id="banner"
-    src="banner/banner1.png"
-    style="
-      position:fixed;
-      top:20px;
-      right:20px;
-      width:320px;
-      height:auto;
-    "
-  >
+<img id="banner" src="img/banner1.png" alt="Banner">
+
+<script>
+
+const imagens = [
+    "img/banner1.png",
+    "img/banner2.png",
+    "img/banner3.png",
+    "img/banner4.png"
+];
+
+let atual = 0;
+
+setInterval(function(){
+
+    atual++;
+
+    if(atual >= imagens.length){
+        atual = 0;
+    }
+
+    document.getElementById("banner").src = imagens[atual];
+
+},10000);
+
+</script>
 
 </body>
 </html>
