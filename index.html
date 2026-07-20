@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Canal Fraternidade Overlay</title>
 
 <style>
-html,body{
-    margin:0;
-    padding:0;
-    background:transparent;
-    overflow:hidden;
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: transparent;
 }
 
-#banner{
-    position:fixed;
-    top:20px;
-    right:20px;
-    width:320px;
-    height:auto;
+#banner {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 200px;      /* Altere este valor se quiser maior ou menor */
+    height: auto;
 }
 </style>
 
@@ -29,27 +30,37 @@ html,body{
 <img id="banner" src="img/banner1.png" alt="Banner">
 
 <script>
+
 const banners = [
-  "img/banner1.png",
-  "img/banner2.png",
-  "img/banner3.png",
-  "img/banner4.png"
+    "img/banner1.png",
+    "img/banner2.png",
+    "img/banner3.png",
+    "img/banner4.png"
 ];
 
 // Pré-carrega todas as imagens
 banners.forEach(src => {
-  const img = new Image();
-  img.src = src;
+    const img = new Image();
+    img.src = src;
 });
 
 let atual = 0;
 const banner = document.getElementById("banner");
 
 setInterval(() => {
-  atual = (atual + 1) % banners.length;
-  banner.src = banners[atual];
+
+    atual++;
+
+    if (atual >= banners.length) {
+        atual = 0;
+    }
+
+    banner.src = banners[atual];
+
 }, 10000);
+
 </script>
-    
+
 </body>
+
 </html>
