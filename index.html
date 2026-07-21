@@ -1,66 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Canal Fraternidade Overlay</title>
+
+<title>Canal Fraternidade</title>
 
 <style>
-html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background: transparent;
+
+html,body{
+    margin:0;
+    padding:0;
+    background:transparent;
+    overflow:hidden;
 }
 
-#banner {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    width: 200px;      /* Altere este valor se quiser maior ou menor */
-    height: auto;
+#banner{
+
+    position:fixed;
+    top:15px;
+    right:15px;
+
+    width:200px;
+    height:auto;
+
+    opacity:0;
+    transform:translateY(-80px);
+
+    transition:
+        transform 1s ease,
+        opacity 1s ease;
+
 }
+
 </style>
 
 </head>
 
 <body>
 
-<img id="banner" src="img/banner1.png" alt="Banner">
+<img id="banner" src="img/banner1.png">
 
 <script>
 
-const banners = [
-    "img/banner1.png",
-    "img/banner2.png",
-    "img/banner3.png",
-    "img/banner4.png"
+const banners=[
+"img/banner1.png",
+"img/banner2.png",
+"img/banner3.png",
+"img/banner4.png"
 ];
 
-// Pré-carrega todas as imagens
-banners.forEach(src => {
-    const img = new Image();
-    img.src = src;
-});
+let atual=0;
 
-let atual = 0;
-const banner = document.getElementById("banner");
+const banner=document.getElementById("banner");
 
-setInterval(() => {
+function mostrar(){
 
-    atual++;
+    banner.style.opacity=1;
+    banner.style.transform="translateY(0px)";
 
-    if (atual >= banners.length) {
-        atual = 0;
-    }
+}
 
-    banner.src = banners[atual];
+function esconder(){
 
-}, 10000);
+    banner.style.opacity=0;
+    banner.style.transform="translateY(-80px)";
+
+}
+
+mostrar();
+
+setInterval(()=>{
+
+    esconder();
+
+    setTimeout(()=>{
+
+        atual++;
+
+        if(atual>=banners.length)
+            atual=0;
+
+        banner.src=banners[atual];
+
+        mostrar();
+
+    },1000);
+
+},10000);
 
 </script>
 
 </body>
-
 </html>
