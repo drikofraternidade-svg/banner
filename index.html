@@ -142,10 +142,8 @@ transform:translateY(-10px);
 
 <div class="right">
 
-<div class="scan">
-
-SCAN TO ACCESS
-
+<div id="scan" class="scan">
+    
 </div>
 
 <div id="qrcode"></div>
@@ -202,7 +200,7 @@ url:"Ganhe Desconto",
 
 link:"https://www.mundomagnetico.com.br/qusm3hhv3-/oleo-essencial-de-hortela-concentrado-nutratop-menta-piperita",
 
-icon:"https://cdn.simpleicons.org/leaflet/22AA55"
+icon:"https://cdn.awsli.com.br/2500x2500/1961/1961055/produto/260633494/-leo-de-hortel-2026-jsnx9tzt6e.jpg"
     
 }
 
@@ -214,6 +212,7 @@ const banner=document.getElementById("banner");
 const titulo=document.getElementById("title");
 const endereco=document.getElementById("url");
 const icone=document.getElementById("icon");
+const scan = document.getElementById("scan");
 const qr=document.getElementById("qrcode");
 
     function atualizarCard(){
@@ -238,7 +237,9 @@ const qr=document.getElementById("qrcode");
 }
 
 atualizarCard();
-
+    
+  scan.textContent = card.scan;
+    
 setInterval(()=>{
 
     banner.classList.add("fade");
