@@ -1,35 +1,113 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Canal Fraternidade</title>
+<title>Canal Fraternidade Overlay</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 
 html,body{
-    margin:0;
-    padding:0;
-    background:transparent;
-    overflow:hidden;
+margin:0;
+padding:0;
+overflow:hidden;
+background:transparent;
+font-family:Arial,Helvetica,sans-serif;
 }
 
-#banner{
+.banner{
 
-    position:fixed;
-    top:15px;
-    right:15px;
+width:100%;
+height:90px;
 
-    width:200px;
-    height:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
 
-    opacity:0;
-    transform:translateY(-80px);
+padding:0 30px;
 
-    transition:
-        transform 1s ease,
-        opacity 1s ease;
+box-sizing:border-box;
+
+background:rgba(10,10,10,.72);
+
+backdrop-filter:blur(14px);
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+transition:opacity .8s ease;
+
+}
+
+.left{
+
+display:flex;
+align-items:center;
+gap:18px;
+
+}
+
+.icon{
+
+width:52px;
+height:52px;
+object-fit:contain;
+
+}
+
+.text{
+
+display:flex;
+flex-direction:column;
+
+}
+
+.title{
+
+color:white;
+font-size:24px;
+font-weight:bold;
+
+}
+
+.url{
+
+color:#ff4040;
+font-size:17px;
+
+}
+
+.right{
+
+display:flex;
+align-items:center;
+gap:18px;
+
+}
+
+.scan{
+
+color:white;
+font-size:15px;
+
+}
+
+#qrcode{
+
+padding:6px;
+background:white;
+border-radius:10px;
+box-shadow:0 0 15px rgba(255,255,255,.25);
+
+}
+
+.fade{
+
+opacity:0;
 
 }
 
@@ -39,55 +117,140 @@ html,body{
 
 <body>
 
-<img id="banner" src="img/banner1.png">
+<div class="banner" id="banner">
+
+<div class="left">
+
+<img id="icon" class="icon">
+
+<div class="text">
+
+<div id="title" class="title"></div>
+
+<div id="url" class="url"></div>
+
+</div>
+
+</div>
+
+<div class="right">
+
+<div class="scan">
+
+SCAN TO ACCESS
+
+</div>
+
+<div id="qrcode"></div>
+
+</div>
+
+</div>
 
 <script>
 
-const banners=[
-"img/banner1.png",
-"img/banner2.png",
-"img/banner3.png",
-"img/banner4.png"
+const cards=[
+
+{
+
+title:"Canal Fraternidade",
+
+url:"youtube.com/@canalfraternidade",
+
+link:"https://www.youtube.com/@canalfraternidade",
+
+icon:"https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+
+},
+
+{
+
+title:"Canal Fraternidade Cortes",
+
+url:"youtube.com/@canalfraternidadecortes",
+
+link:"https://www.youtube.com/@canalfraternidadecortes",
+
+icon:"https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+
+},
+
+{
+
+title:"WhatsApp Canal",
+
+url:"Fale conosco",
+
+link:"https://api.whatsapp.com/send/?phone=5517991085514",
+
+icon:"https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+
+},
+
+{
+
+title:"Óleo Essencial NUTRATOP",
+
+url:"Ganhe Desconto",
+
+link:"https://www.mundomagnetico.com.br/qusm3hhv3-/oleo-essencial-de-hortela-concentrado-nutratop-menta-piperita",
+
+icon:"https://upload.wikimedia.org/wikipedia/commons/3/36/Emoji_u1f33f.svg"
+
+}
+
 ];
 
 let atual=0;
 
 const banner=document.getElementById("banner");
+const titulo=document.getElementById("title");
+const endereco=document.getElementById("url");
+const icone=document.getElementById("icon");
+const qr=document.getElementById("qrcode");
 
-function mostrar(){
+    function atualizarCard(){
 
-    banner.style.opacity=1;
-    banner.style.transform="translateY(0px)";
+    const card = cards[atual];
+
+    titulo.textContent = card.title;
+    endereco.textContent = card.url;
+    icone.src = card.icon;
+
+    qr.innerHTML = "";
+
+    new QRCode(qr,{
+        text: card.link,
+        width:72,
+        height:72,
+        colorDark:"#000000",
+        colorLight:"#ffffff",
+        correctLevel:QRCode.CorrectLevel.H
+    });
 
 }
 
-function esconder(){
-
-    banner.style.opacity=0;
-    banner.style.transform="translateY(-80px)";
-
-}
-
-mostrar();
+atualizarCard();
 
 setInterval(()=>{
 
-    esconder();
+    banner.classList.add("fade");
 
     setTimeout(()=>{
 
         atual++;
 
-        if(atual>=banners.length)
-            atual=0;
+        if(atual >= cards.length){
+            atual = 0;
+        }
 
-        banner.src=banners[atual];
+        atualizarCard();
 
-        mostrar();
+        banner.classList.remove("fade");
 
-    },1000);
+    },800);
 
-},10000);
+},20000);
 
 </script>
 
