@@ -40,8 +40,8 @@ backdrop-filter:blur(14px);
 border-bottom:1px solid rgba(255,255,255,.08);
 
 transition:
-    opacity .8s ease,
-    transform .8s ease;
+opacity .8s ease,
+transform .8s ease;
 
 transform:translateY(0);
 
@@ -97,6 +97,7 @@ gap:18px;
 
 color:white;
 font-size:15px;
+font-weight:bold;
 
 }
 
@@ -113,8 +114,6 @@ box-shadow:0 0 15px rgba(255,255,255,.25);
 
 opacity:0;
 transform:translateY(-10px);
-
-}
 
 }
 
@@ -142,9 +141,7 @@ transform:translateY(-10px);
 
 <div class="right">
 
-<div id="scan" class="scan">
-    
-</div>
+<div id="scan" class="scan"></div>
 
 <div id="qrcode"></div>
 
@@ -159,49 +156,41 @@ const cards=[
 {
 
 title:"Canal Fraternidade",
-
 url:"youtube.com/@canalfraternidade",
-
 link:"https://www.youtube.com/@canalfraternidade",
+icon:"https://cdn.simpleicons.org/youtube/FF0000",
+scan:"▶ ASSISTA AGORA"
 
-icon:"https://cdn.simpleicons.org/youtube/FF0000"
-    
 },
 
 {
 
 title:"Canal Fraternidade Cortes",
-
 url:"youtube.com/@canalfraternidadecortes",
-
 link:"https://www.youtube.com/@canalfraternidadecortes",
-
-icon:"https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+icon:"https://cdn.simpleicons.org/youtube/FF0000",
+scan:"🎬 VEJA OS CORTES"
 
 },
 
 {
 
 title:"WhatsApp Canal",
-
 url:"Fale conosco",
-
 link:"https://api.whatsapp.com/send/?phone=5517991085514",
+icon:"https://cdn.simpleicons.org/whatsapp/25D366",
+scan:"💬 FALE CONOSCO"
 
-icon:"https://cdn.simpleicons.org/whatsapp/25D366"
-    
 },
 
 {
 
 title:"Óleo Essencial NUTRATOP",
-
 url:"Ganhe Desconto",
-
 link:"https://www.mundomagnetico.com.br/qusm3hhv3-/oleo-essencial-de-hortela-concentrado-nutratop-menta-piperita",
+icon:"https://cdn.awsli.com.br/2500x2500/1961/1961055/produto/260633494/-leo-de-hortel-2026-jsnx9tzt6e.jpg",
+scan:"🌿 APROVEITE O DESCONTO"
 
-icon:"https://cdn.awsli.com.br/2500x2500/1961/1961055/produto/260633494/-leo-de-hortel-2026-jsnx9tzt6e.jpg"
-    
 }
 
 ];
@@ -212,48 +201,61 @@ const banner=document.getElementById("banner");
 const titulo=document.getElementById("title");
 const endereco=document.getElementById("url");
 const icone=document.getElementById("icon");
-const scan = document.getElementById("scan");
+const scan=document.getElementById("scan");
 const qr=document.getElementById("qrcode");
 
-    function atualizarCard(){
+function atualizarCard(){
 
-    const card = cards[atual];
+const card=cards[atual];
 
-    titulo.textContent = card.title;
-    endereco.textContent = card.url;
-    icone.src = card.icon;
+titulo.textContent=card.title;
+endereco.textContent=card.url;
+icone.src=card.icon;
+scan.textContent=card.scan;
 
-    qr.innerHTML = "";
+qr.innerHTML="";
 
-    new QRCode(qr,{
-        text: card.link,
-        width:72,
-        height:72,
-        colorDark:"#000000",
-        colorLight:"#ffffff",
-        correctLevel:QRCode.CorrectLevel.H
-    });
+new QRCode(qr,{
+
+text:card.link,
+width:72,
+height:72,
+colorDark:"#000000",
+colorLight:"#ffffff",
+correctLevel:QRCode.CorrectLevel.H
+
+});
 
 }
+// Pré-carrega os ícones para evitar atraso na troca
+cards.forEach(card=>{
+    const img=new Image();
+    img.src=card.icon;
+});
 
+// Exibe o primeiro card
 atualizarCard();
-    
-  scan.textContent = card.scan;
-    
+
+// A cada 20 segundos faz a transição
 setInterval(()=>{
 
+    // Fade de saída
     banner.classList.add("fade");
 
+    // Aguarda o fade terminar
     setTimeout(()=>{
 
+        // Próximo card
         atual++;
 
-        if(atual >= cards.length){
-            atual = 0;
+        if(atual>=cards.length){
+            atual=0;
         }
 
+        // Atualiza o conteúdo
         atualizarCard();
 
+        // Fade de entrada
         banner.classList.remove("fade");
 
     },800);
